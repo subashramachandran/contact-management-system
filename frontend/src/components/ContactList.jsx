@@ -3,6 +3,8 @@ import React from 'react';
 import axios from 'axios';
 import { useState, useEffect } from 'react';
 
+const API_URL = import.meta.env.VITE_API_URL;
+
 function ContactList({ contacts, setContacts }) {
   const [loading, setLoading] = useState(true);
   const [filter, setFilter] = useState('');
@@ -20,7 +22,7 @@ function ContactList({ contacts, setContacts }) {
 
       try {
         const [res] = await Promise.all([
-          axios.get(`http://localhost:5000/contacts${query}`),
+          axios.get(`${API_URL}/contacts${query}`),
           delay
         ]);
 
@@ -38,7 +40,7 @@ function ContactList({ contacts, setContacts }) {
  const handleStatusChange = async (id, newStatus) => {
   try {
     await axios.patch(
-      `http://localhost:5000/contacts/${id}`,
+      `${API_URL}/contacts/${id}`,
       { status: newStatus }
     );
 
@@ -56,7 +58,7 @@ function ContactList({ contacts, setContacts }) {
 
   const handleDelete = async (id) => {
     try {
-      await axios.delete(`http://localhost:5000/contacts/${id}`);
+      await axios.delete(`${API_URL}/contacts/${id}`);
 
       setContacts((prev) =>
         prev.filter((contact) => contact._id !== id)

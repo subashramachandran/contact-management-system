@@ -3,6 +3,8 @@ import React from 'react';
 import { useState } from 'react';
 import axios from 'axios';
 
+const API_URL = import.meta.env.VITE_API_URL;
+
 function ContactForm({ contacts, setContacts }) {
   const [name, setName] = useState('');
   const [company, setCompany] = useState('');
@@ -15,7 +17,7 @@ function ContactForm({ contacts, setContacts }) {
     if (!name || !email) return alert('Name and Email are required');
 
     try {
-      const res = await axios.post('http://localhost:5000/contacts', {
+      const res = await axios.post(`${API_URL}/contacts`, {
         name,
         company,
         email,
